@@ -1,0 +1,84 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <title>Spring Boot WebSocket 点对点</title>
+</head>
+<body onload="disconnect()">
+<noscript>
+    <h2 style="color: #ff0000;">貌似你的浏览器不支持 websocket</h2>
+</noscript>
+<div>
+    <label for="selfID">set your ID: </label>
+    <input type="text" id="selfID"/>
+    <br/>
+    <label for="chatUserID">set chat user's ID: </label>
+    <input type="text" name="用户名：" id="chatUserID"/>
+    <br/>
+    <button id="connect" onclick="connect();">Connect</button>
+    <button id="disconnect" onclick="disconnect();" disabled="disabled">Disconnect</button>
+</div>
+<div id="conversationDiv">
+    <label for="message">Message: </label>
+    <input type="text" id="message"/>
+    <button id="sendName" onclick="sendMessage();">Send</button>
+    <p id="response"></p>
+</div>
+<script th:src="@{sockjs.min.js}"></script>
+<script th:src="@{stomp.min.js}"></script>
+<script th:src="@{jquery.js}"></script>
+<script type="text/javascript">
+    var stompClient = null;
+    var chatUserID = null;
+    var selfID = null;
+
+    function setConnected(connected) {
+        conn = $('#connect');
+        disconn = $('#disconnect');
+        if (connected) {
+            conn.attr('disabled', 'true');
+            disconn.removeAttr('disabled');
+        } else {
+            conn.removeAttr('disabled');
+            disconn.attr('disabled', 'true');
+        }
+        // document.getElementById('connect').disabled = connected;
+        // document.getElementById('disconnected').disabled = !connected;
+        document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
+        $('#response').html();
+    }
+
+    function connect() {
+        var socket = new SockJS("/hello");
+        chatUserID = $("#chatUserID").val();
+        selfID = $("#selfID").val();
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            setConnected(true);
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/user/' + selfID + '/msg', function (response) {
+                showResponse(JSON.parse(response.body).responseMessage);
+            });
+        });
+    }
+
+    function disconnect() {
+        if (stompClient != null) {
+            stompClient.disconnect();
+        }
+        setConnected(false);
+        console.log('Disconnected');
+    }
+
+    function sendMessage() {
+        var message = $('#message').val();
+        stompClient.send('/chat', {}, JSON.stringify({'userID': chatUserID, 'fromUserID': selfID, 'message': message}));
+    }
+
+    function showResponse(message) {
+        var response = $('#response');
+        response.html(message);
+    }
+</script>
+</body>
+</html>

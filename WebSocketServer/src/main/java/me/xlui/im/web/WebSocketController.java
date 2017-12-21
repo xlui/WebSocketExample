@@ -1,5 +1,6 @@
 package me.xlui.im.web;
 
+import me.xlui.im.message.ChatMessage;
 import me.xlui.im.message.Message;
 import me.xlui.im.message.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,11 @@ public class WebSocketController {
 	public void say(@DestinationVariable int groupID, Message message) throws Exception {
 		Response response = new Response("Welcome to group " + groupID + ", " + message.getName() + "!");
 		simpMessagingTemplate.convertAndSend("/topic/group/" + groupID, response);
+	}
+
+	@MessageMapping("/chat")
+	public void chat(ChatMessage chatMessage) {
+		Response response = new Response("Receive message from user " + chatMessage.getFromUserID() + ": " + chatMessage.getMessage());
+		simpMessagingTemplate.convertAndSendToUser(String.valueOf(chatMessage.getUserID()), "/msg", response);
 	}
 }
