@@ -13,7 +13,7 @@
     <button id="disconnect" onclick="disconnect();" disabled="disabled">断开连接</button>
 </div>
 <div id="conversationDiv">
-    <label>输入你的名字</label>
+    <label for="name">输入你的名字</label>
     <input type="text" id="name"/>
     <button id="sendName" onclick="sendName();">发送</button>
     <p id="response"></p>
@@ -34,19 +34,17 @@
             conn.removeAttr('disabled');
             disconn.attr('disabled', 'true');
         }
-        // document.getElementById('connect').disabled = connected;
-        // document.getElementById('disconnected').disabled = !connected;
         document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
         $('#response').html();
     }
 
     function connect() {
-        var socket = new SockJS("/hello");
+        var socket = new SockJS("/im");
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             setConnected(true);
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/getResponse', function (response) {
+            stompClient.subscribe('/broadcast/getResponse', function (response) {
                 showResponse(JSON.parse(response.body).responseMessage);
             });
         });
@@ -62,12 +60,12 @@
 
     function sendName() {
         var name = $('#name').val();
-        stompClient.send('/welcome', {}, JSON.stringify({'name': name}));
+        stompClient.send('/broadcast', {}, JSON.stringify({'name': name}));
     }
 
     function showResponse(message) {
         var response = $('#response');
-        response.html(message);
+        response.html(response.text() + '\r\n' + message);
     }
 </script>
 </body>

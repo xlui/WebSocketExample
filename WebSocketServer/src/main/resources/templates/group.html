@@ -41,20 +41,18 @@
             conn.removeAttr('disabled');
             disconn.attr('disabled', 'true');
         }
-        // document.getElementById('connect').disabled = connected;
-        // document.getElementById('disconnected').disabled = !connected;
         document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
         $('#response').html();
     }
 
     function connect() {
-        var socket = new SockJS("/hello");
+        var socket = new SockJS("/im");
         groupId = $('#group').val();
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             setConnected(true);
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/group/' + groupId, function (response) {
+            stompClient.subscribe('/g/' + groupId, function (response) {
                 showResponse(JSON.parse(response.body).responseMessage);
             });
         });

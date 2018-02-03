@@ -15,18 +15,18 @@ public class WebSocketController {
 	@Autowired
 	SimpMessagingTemplate simpMessagingTemplate;
 
-	// 当客户端向服务器发送请求时，通过 `@MessageMapping` 映射 /welcome 这个地址
-	@MessageMapping("/welcome")
-// 当服务器有消息时，会对订阅了 @SendTo 中的路径的客户端发送消息
-	@SendTo("/topic/getResponse")
-	public Response say(Message message) throws Exception {
+	// 当客户端向服务器发送请求时，通过 `@MessageMapping` 映射 /broadcast 这个地址
+	@MessageMapping("/broadcast")
+	// 当服务器有消息时，会对订阅了 @SendTo 中的路径的客户端发送消息
+	@SendTo("/broadcast/getResponse")
+	public Response say(Message message) {
 		return new Response("Welcome, " + message.getName() + "!");
 	}
 
 	@MessageMapping("/group/{groupID}")
-	public void say(@DestinationVariable int groupID, Message message) throws Exception {
+	public void group(@DestinationVariable int groupID, Message message) {
 		Response response = new Response("Welcome to group " + groupID + ", " + message.getName() + "!");
-		simpMessagingTemplate.convertAndSend("/topic/group/" + groupID, response);
+		simpMessagingTemplate.convertAndSend("/g/" + groupID, response);
 	}
 
 	@MessageMapping("/chat")

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/ws").setViewName("/ws");
+		registry.addViewController("/broadcast").setViewName("/broadcast");
 		registry.addViewController("/group").setViewName("/group");
 		registry.addViewController("/chat").setViewName("/chat");
 	}

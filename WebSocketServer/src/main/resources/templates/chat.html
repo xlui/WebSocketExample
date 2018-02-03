@@ -42,14 +42,12 @@
             conn.removeAttr('disabled');
             disconn.attr('disabled', 'true');
         }
-        // document.getElementById('connect').disabled = connected;
-        // document.getElementById('disconnected').disabled = !connected;
         document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
         $('#response').html();
     }
 
     function connect() {
-        var socket = new SockJS("/hello");
+        var socket = new SockJS("/im");
         chatUserID = $("#chatUserID").val();
         selfID = $("#selfID").val();
         stompClient = Stomp.over(socket);
