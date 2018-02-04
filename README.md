@@ -1,28 +1,27 @@
 # Spring Boot WebSocket And Android Client
 
-Spring Boot WebSocket Server, with a browser client and Android client. Android client uses [StompProtocolAndroid](https://github.com/NaikSoftware/StompProtocolAndroid) which implements STOMP on Android, to subscribe or send message to server.
+Spring Boot WebSocket Server, with a browser client and a simple Android client. Android client uses [StompProtocolAndroid](https://github.com/NaikSoftware/StompProtocolAndroid) which implements ptotocol [STOMP](https://en.wikipedia.org/wiki/Streaming_Text_Oriented_Messaging_Protocol) on Android, to subscribe or send message to server.
 
 ## Introduction
 
+[中文](README_zh.md)
+
 Server now include three endpoints to receive message from client:
 
-- `/welcome`
-- `/group/{groupID}`
-- `/chat`
+1. `/broadcast`
 
-1. `/welcome`
-
-This endpoint will simply transfer all messages it received to subscriber of `/topic/getResponse`.
+This endpoint will simply transfer all messages it received to subscriber of `/broadcast/getResponse`.
 
 2. `/group/{groupID}`
 
-This endpoint is used to dynamicly create groups. For example, client can send a message to `/group/1`, and all subscriber of `/topic/group/1` will receiver the message. Also, you can change the subscribe endpoint by change the [controller code](WebSocketServer/src/main/java/me/xlui/im/web/WebSocketController.java).
+This endpoint is used to dynamicly create groups. For example, client can send a message to `/group/1`, and all subscriber of `/g/1` will receive the message. Also, you can change the subscribe endpoint by changing the [Controller](WebSocketServer/src/main/java/me/xlui/im/web/WebSocketController.java#L29) and [WebSocketConfig](WebSocketServer/src/main/java/me/xlui/im/config/WebSocketConfig.java#L24)
 
 3. `/chat`
 
-Endpoint `/chat` is used to enable point-to-point chat. If Alice(with userID 1) want to chat with Bob(with userID 2), she should send a message to endpoint `/chat` with a special json object defined in [ChatMessage](WebSocketServer/src/main/java/me/xlui/im/message/ChatMessage.java):
+Endpoint `/chat` is used to enable point-to-point communication. If Alice(with userID 1) want to chat with Bob(with userID 2), she should send a message to endpoint `/chat` with a special json object defined as [ChatMessage](WebSocketServer/src/main/java/me/xlui/im/message/ChatMessage.java):
 
 ```js
+// js code
 function sendMessage() {
     var message = $('#message').val();
     stompClient.send('/chat', {}, JSON.stringify({
@@ -39,7 +38,7 @@ function sendMessage() {
 simpMessagingTemplate.convertAndSendToUser(String.valueOf(chatMessage.getUserID()), "/msg", response);
 ```
 
-Throught code above, the message from Alice will be sent to `/user/2/msg`, and if Bob subscribe himself, he will receive the message.
+Through code above, the message from Alice will be sent to `/user/2/msg`, and if Bob subscribe it(also means subscribe himself), he will receive the message.
 
 And Alice should also subscribe herself to receive message sent to her:
 
@@ -53,7 +52,7 @@ So when Bob send a message to Alice, she will receive it correctly.
 
 <br/>
 
-Android client now can only send message to endpoint `/welcome`, support for endpoint `/group/{groupID}` is the next feature.
+Android client now can only send message to endpoint `/broadcast`, support for endpoint `/group/{groupID}` is the next feature.
 
 Browser client can send message to all endpoints, just see the GIFs bellow. 
 
@@ -61,11 +60,11 @@ Browser client can send message to all endpoints, just see the GIFs bellow.
 
 ![spring boot starter](Images/spring-boot-starter.png)
 
-## Browser
+## Broadcast(Browser)
 
 ![test in browser](Images/websocket-browser-client.gif)
 
-## Android
+## Broadcast(Android)
 
 ![test in android](Images/websocket-android-client.gif)
 
