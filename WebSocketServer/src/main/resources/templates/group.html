@@ -12,15 +12,15 @@
 </noscript>
 <div>
     <label for="group">要连接到的组ID：</label>
-    <input type="text" id="group" placeholder="groupID"/>
+    <input type="text" id="group" placeholder="group id"/>
 </div>
 <div>
     <button id="connect" onclick="connect();">连接</button>
     <button id="disconnect" onclick="disconnect();" disabled="disabled">断开连接</button>
 </div>
 <div id="conversationDiv">
-    <label for="name">输入你的名字</label>
-    <input type="text" id="name"/>
+    <label for="name">输入你的名字：</label>
+    <input type="text" id="name" placeholder="name"/>
     <button id="sendName" onclick="sendName();">发送</button>
     <p id="response"></p>
 </div>
@@ -53,7 +53,7 @@
             setConnected(true);
             console.log('Connected: ' + frame);
             stompClient.subscribe('/g/' + groupId, function (response) {
-                showResponse(JSON.parse(response.body).responseMessage);
+                showResponse(JSON.parse(response.body).response);
             });
         });
     }

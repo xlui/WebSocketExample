@@ -18,7 +18,7 @@ public class WebSocketController {
 	// 当客户端向服务器发送请求时，通过 `@MessageMapping` 映射 /broadcast 这个地址
 	@MessageMapping("/broadcast")
 	// 当服务器有消息时，会对订阅了 @SendTo 中的路径的客户端发送消息
-	@SendTo("/broadcast/getResponse")
+	@SendTo("/b")
 	public Response say(Message message) {
 		return new Response("Welcome, " + message.getName() + "!");
 	}

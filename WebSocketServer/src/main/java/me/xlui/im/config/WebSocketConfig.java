@@ -21,7 +21,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		// 统一配置消息代理，消息代理即订阅点，客户端通过订阅消息代理点接受消息
-		registry.enableSimpleBroker("/broadcast", "/g", "/user");
+		registry.enableSimpleBroker("/b", "/g", "/user");
 
 		// 配置点对点消息的前缀
 		registry.setUserDestinationPrefix("/user");
