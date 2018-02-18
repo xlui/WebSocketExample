@@ -10,7 +10,7 @@ Server now include three endpoints to receive message from client:
 
 1. `/broadcast`
 
-This endpoint will simply transfer all messages it received to subscriber of `/broadcast/getResponse`.
+This endpoint will simply transfer all messages it received to subscriber of `/b`.
 
 2. `/group/{groupID}`
 
@@ -52,9 +52,7 @@ So when Bob send a message to Alice, she will receive it correctly.
 
 <br/>
 
-Android client now can only send message to endpoint `/broadcast`, support for endpoint `/group/{groupID}` is the next feature.
-
-Browser client can send message to all endpoints, just see the GIFs bellow. 
+Android client and Browser support all endpoints now!
 
 ## Server
 

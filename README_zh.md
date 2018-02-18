@@ -10,7 +10,7 @@ Spring Boot WebSocket 服务器端，附带了浏览器客户端和安卓客户�
 
 1. `/broadcast`
 
-broadcast 会转发它接收到的所有消息到 `/broadcast/getResponse` 端点的订阅者。
+broadcast 会转发它接收到的所有消息到 `/b` 端点的订阅者。
 
 2. `/group/{groupID}`
 
@@ -52,9 +52,7 @@ stompClient.subscribe('/user/' + 1 + '/msg', function (response) {
 
 ## 当前状态
 
-Android 端目前只能发送消息给 `/broadcast`，并接受相应的回应。下一个 Feature 是对 `/group/{groupID}` 的支持。
-
-浏览器端可以测试全部端点，运行服务器端代码，分别访问 `localhost:8080/broadcast`、`localhost:8080/group/{groupID}`、`localhost:8080/chat` 进行测试。
+安卓端和浏览器端现在支持所有端点！
 
 ## 服务器端构建
 
