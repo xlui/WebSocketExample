@@ -14,7 +14,7 @@ This endpoint will simply transfer all messages it received to subscriber of `/b
 
 2. `/group/{groupID}`
 
-This endpoint is used to dynamicly create groups. For example, client can send a message to `/group/1`, and all subscriber of `/g/1` will receive the message. Also, you can change the subscribe endpoint by changing the [Controller](WebSocketServer/src/main/java/me/xlui/im/web/WebSocketController.java#L29) and [WebSocketConfig](WebSocketServer/src/main/java/me/xlui/im/config/WebSocketConfig.java#L24)
+This endpoint is used to dynamicly create groups. For example, client can send a message to `/group/1`, and all subscriber of `/g/1` will receive the message. Also, you can change the subscribe endpoint by changing the [Controller](WebSocketServer/src/main/java/me/xlui/im/web/WebSocketController.java#L29) and [WebSocketConfig](WebSocketServer/src/main/java/me/xlui/im/config/WebSocketConfig.java#L26)
 
 3. `/chat`
 
@@ -60,19 +60,27 @@ Android client and Browser support all endpoints now!
 
 ## Broadcast(Browser)
 
-![test in browser](Images/websocket-browser-client.gif)
+![broadcast in browser](Images/websocket-browser-broadcast.gif)
 
 ## Broadcast(Android)
 
-![test in android](Images/websocket-android-client.gif)
+![broadcast in android](Images/websocket-android-broadcast.gif)
 
-## Dynamic Groups
+## Dynamic Groups(Browser)
 
-![groups](Images/group.gif)
+![group in browser](Images/websocket-browser-group.gif)
 
-## Point-to-Point Message
+## Dynamic Groups(Android)
 
-![chat](Images/chat.gif)
+![group in android](Images/websocket-android-group.gif)
+
+## Point-to-Point Chat(Browser)
+
+![chat in browser](Images/websocket-browser-chat.gif)
+
+## Point-to-Point Chat(Android)
+
+![chat in browser](Images/websocket-android-chat.gif)
 
 ## LICENSE
 

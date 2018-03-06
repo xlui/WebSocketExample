@@ -14,7 +14,7 @@ broadcast 会转发它接收到的所有消息到 `/b` 端点的订阅者。
 
 2. `/group/{groupID}`
 
-这个端点用于动态创建群组。举个例子，一个客户端发送消息给 `/group/1`，所有订阅了端点 `/g/1` 的客户端都会接收到消息。如果要改变接收消息的端点，需要同时改变 [Controller](WebSocketServer/src/main/java/me/xlui/im/web/WebSocketController.java#L29) 和 [WebSocketConfig](WebSocketServer/src/main/java/me/xlui/im/config/WebSocketConfig.java#L24) 的相关代码。
+这个端点用于动态创建群组。举个例子，一个客户端发送消息给 `/group/1`，所有订阅了端点 `/g/1` 的客户端都会接收到消息。如果要改变接收消息的端点，需要同时改变 [Controller](WebSocketServer/src/main/java/me/xlui/im/web/WebSocketController.java#L29) 和 [WebSocketConfig](WebSocketServer/src/main/java/me/xlui/im/config/WebSocketConfig.java#L26) 的相关代码。
 
 3. `/chat`
 
@@ -60,19 +60,27 @@ stompClient.subscribe('/user/' + 1 + '/msg', function (response) {
 
 ## Broadcast(Browser)
 
-![test in browser](Images/websocket-browser-client.gif)
+![broadcast in browser](Images/websocket-browser-broadcast.gif)
 
 ## Broadcast(Android)
 
-![test in android](Images/websocket-android-client.gif)
+![broadcast in android](Images/websocket-android-broadcast.gif)
 
-## Dynamic Groups
+## Dynamic Groups(Browser)
 
-![groups](Images/group.gif)
+![group in browser](Images/websocket-browser-group.gif)
 
-## Point-to-Point Message
+## Dynamic Groups(Android)
 
-![chat](Images/chat.gif)
+![group in android](Images/websocket-android-group.gif)
+
+## Point-to-Point Chat(Browser)
+
+![chat in browser](Images/websocket-browser-chat.gif)
+
+## Point-to-Point Chat(Android)
+
+![chat in browser](Images/websocket-android-chat.gif)
 
 ## LICENSE
 
