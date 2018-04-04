@@ -72,7 +72,7 @@ public class ChatActivity extends AppCompatActivity {
 		StompClient stompClient = Stomp.over(WebSocket.class, Const.address);
 		stompClient.connect();
 		Toast.makeText(this, "开始连接", Toast.LENGTH_SHORT).show();
-		StompUtils.connect(stompClient);
+		StompUtils.lifecycle(stompClient);
 
 		stompClient.topic(Const.chatResponse.replace(Const.placeholder, user_id)).subscribe(stompMessage -> {
 			JSONObject jsonObject = new JSONObject(stompMessage.getPayload());

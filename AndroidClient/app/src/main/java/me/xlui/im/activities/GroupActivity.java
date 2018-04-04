@@ -64,7 +64,7 @@ public class GroupActivity extends AppCompatActivity {
 		StompClient stompClient = Stomp.over(WebSocket.class, Const.address);
 		stompClient.connect();
 		Toast.makeText(this, "开始连接", Toast.LENGTH_SHORT).show();
-		StompUtils.connect(stompClient);
+		StompUtils.lifecycle(stompClient);
 
 		groupId.addTextChangedListener(new TextWatcher() {
 			@Override

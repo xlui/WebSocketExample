@@ -1,12 +1,14 @@
 package me.xlui.im.util;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import me.xlui.im.conf.Const;
 import ua.naiksoftware.stomp.client.StompClient;
 
 public class StompUtils {
-	public static void connect(StompClient stompClient) {
+	@SuppressLint("CheckResult")
+    public static void lifecycle(StompClient stompClient) {
 		stompClient.lifecycle().subscribe(lifecycleEvent -> {
 			switch (lifecycleEvent.getType()) {
 				case OPENED:
