@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="me.xlui.im.activities.GroupActivity">
+    tools:context="app.xlui.example.im.activities.GroupActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
