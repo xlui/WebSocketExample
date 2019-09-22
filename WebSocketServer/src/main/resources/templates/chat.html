@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-    <title>Spring Boot WebSocket 点对点</title>
+    <title>Spring Boot WebSocket Point-to-Point chat</title>
 </head>
 <body onload="disconnect()">
 <noscript>
-    <h2 style="color: #ff0000;">貌似你的浏览器不支持 websocket</h2>
+    <h2 style="color: #ff0000;">You browser does not support websocket</h2>
 </noscript>
 <div>
     <label for="selfID">set your ID: </label>
     <input type="text" id="selfID" placeholder="your id"/>
     <br/>
     <label for="chatUserID">set chat user's ID: </label>
-    <input type="text" name="用户名：" id="chatUserID" placeholder="chat user's id"/>
+    <input type="text" name="Username: " id="chatUserID" placeholder="chat user's id"/>
     <br/>
     <button id="connect" onclick="connect();">Connect</button>
     <button id="disconnect" onclick="disconnect();" disabled="disabled">Disconnect</button>

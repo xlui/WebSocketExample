@@ -4,24 +4,24 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Spring Boot WebSocket 组内广播</title>
+    <title>Spring Boot WebSocket Group chat</title>
 </head>
 <body onload="disconnect()">
 <noscript>
-    <h2 style="color: #ff0000;">貌似你的浏览器不支持 websocket</h2>
+    <h2 style="color: #ff0000;">You browser does not support websocket</h2>
 </noscript>
 <div>
-    <label for="group">要连接到的组ID：</label>
+    <label for="group">Group id:</label>
     <input type="text" id="group" placeholder="group id"/>
 </div>
 <div>
-    <button id="connect" onclick="connect();">连接</button>
-    <button id="disconnect" onclick="disconnect();" disabled="disabled">断开连接</button>
+    <button id="connect" onclick="connect();">Connect</button>
+    <button id="disconnect" onclick="disconnect();" disabled="disabled">Disconnect</button>
 </div>
 <div id="conversationDiv">
-    <label for="name">输入你的名字：</label>
+    <label for="name">Enter you name:</label>
     <input type="text" id="name" placeholder="name"/>
-    <button id="sendName" onclick="sendName();">发送</button>
+    <button id="sendName" onclick="sendName();">Send</button>
     <p id="response"></p>
 </div>
 <script th:src="@{sockjs.min.js}"></script>

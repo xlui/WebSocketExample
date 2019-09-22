@@ -23,6 +23,11 @@ public class WebSocketController {
     }
 
     /**
+     * <code>@MessageMapping</code> defines the endpoint for receiving message, client will send websocket message
+     * to endpoints defined in this method. <code>@SendTo</code> defines the return value's target endpoint of some
+     * method, clients which subscribe to this endpoint will receive the return value of this method. This method will
+     * send received message to all clients that subscribe <code>@SendTo</code> endpoint, just like a broadcast
+     *
      * <code>@MessageMapping</code> 定义接收消息的端点，客户端发送 WebSocket 消息到此端点。
      * <code>@SendTo</code> 定义方法返回值发送的端点，订阅该端点的客户端可以收到服务器端的回复。
      * 此端点默认将收到的消息发送到所有订阅了 <code>@SendTo</code> 端点的客户端，相当于广播。
@@ -46,6 +51,10 @@ public class WebSocketController {
     }
 
     /**
+     * Add a placeholder in <code>@MessageMapping</code> to get the dynamic param in websocket url, for dynamic
+     * resending. Message sent to this method will be resent to any clients that subscribe endpoint {@code /g/<groupId>}.
+     * Just like a group chat.
+     *
      * 通过在 <code>@MessageMapping</code> 中添加消息占位符来获取 url 内容，从而动态转发。
      * 消息会发送到所有订阅了 {@code /g/<groupId>} 的客户端，实现效果相当于群聊
      *
@@ -60,6 +69,9 @@ public class WebSocketController {
     }
 
     /**
+     * Send message to specify user depend on {@code ChatMessage}, every user will subscribe himself/herself's endpoint
+     * {@code /user/<userId>/msg}, just like point to point chat.
+     *
      * 依据 {@code ChatMessage} 中的内容发送消息给特定用户，每个用户都订阅自己接受消息的端点
      * {@code /user/<userId>/msg}，实现效果类似点对点聊天
      *

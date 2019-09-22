@@ -71,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
 
         StompClient stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, Const.address);
         stompClient.connect();
-        Toast.makeText(this, "开始连接", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Connect start", Toast.LENGTH_SHORT).show();
         StompUtils.lifecycle(stompClient);
 
         stompClient.topic(Const.chatResponse.replace(Const.placeholder, user_id)).subscribe(stompMessage -> {

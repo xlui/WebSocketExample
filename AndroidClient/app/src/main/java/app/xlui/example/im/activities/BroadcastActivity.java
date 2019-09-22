@@ -55,11 +55,11 @@ public class BroadcastActivity extends AppCompatActivity {
         StompClient stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, Const.address);
         // 连接服务器
         stompClient.connect();
-        Toast.makeText(this, "开始连接", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Connect start", Toast.LENGTH_SHORT).show();
         StompUtils.lifecycle(stompClient);
 
         // 订阅消息
-        Log.i(Const.TAG, "订阅广播");
+        Log.i(Const.TAG, "Subscribe broadcast");
         stompClient.topic(Const.broadcastResponse).subscribe(stompMessage -> {
             JSONObject jsonObject = new JSONObject(stompMessage.getPayload());
             Log.i(Const.TAG, "Receive: " + stompMessage.getPayload());
