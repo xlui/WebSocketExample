@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">Im</string>
 
-    <string name="broadcast">广播</string>
-    <string name="groups">动态群组</string>
-    <string name="chat">点对点</string>
+    <string name="broadcast">Broadcast</string>
+    <string name="groups">Groups</string>
+    <string name="chat">Chat</string>
 
-    <string name="broadcast_prompt">请输入你的名字：</string>
-    <string name="send">发送</string>
+    <string name="broadcast_prompt">Please input you name:</string>
+    <string name="send">Send</string>
 
-    <string name="group_prompt">请输入你要加入的群组：</string>
-    <string name="confirm">确定</string>
+    <string name="group_prompt">Please input the group id:</string>
+    <string name="confirm">Confirm</string>
 
-    <string name="id_prompt">你的ID是：</string>
-    <string name="chat_user_id">请输入聊天对象的ID：</string>
-    <string name="chat_message">请输入聊天内容：</string>
+    <string name="id_prompt">Please input you id:</string>
+    <string name="chat_user_id">Please input chat user id:</string>
+    <string name="chat_message">Please input chat message</string>
 </resources>

@@ -1,6 +1,5 @@
 package app.xlui.example.im.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,38 +21,37 @@ import app.xlui.example.im.util.StompUtils;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.StompClient;
 
+@SuppressWarnings({"FieldCanBeLocal", "ResultOfMethodCallIgnored", "CheckResult"})
 public class GroupActivity extends AppCompatActivity {
-    private Button broadcast;
-    private Button groups;
-    private Button chat;
+    private Button broadcastButton;
+    private Button groupButton;
+    private Button chatButton;
 
-    private EditText groupId;
-    private Button submit;
-    private EditText name;
-    private Button send;
-    private TextView show;
+    private EditText groupIdText;
+    private Button submitButton;
+    private EditText nameText;
+    private Button sendButton;
+    private TextView showText;
 
-    private String group_id;
+    private String groupId;
 
     private void init() {
-        broadcast = findViewById(R.id.broadcast);
-        groups = findViewById(R.id.groups);
-        groups.setEnabled(false);
-        chat = findViewById(R.id.chat);
+        broadcastButton = findViewById(R.id.broadcast);
+        groupButton = findViewById(R.id.groups);
+        groupButton.setEnabled(false);
+        chatButton = findViewById(R.id.chat);
 
-        groupId = findViewById(R.id.group_id);
-        submit = findViewById(R.id.submit);
-        submit.setEnabled(false);
+        groupIdText = findViewById(R.id.group_id);
+        submitButton = findViewById(R.id.submit);
+        submitButton.setEnabled(false);
 
-        name = findViewById(R.id.name);
-        send = findViewById(R.id.send);
-        send.setEnabled(false);
+        nameText = findViewById(R.id.name);
+        sendButton = findViewById(R.id.send);
+        sendButton.setEnabled(false);
 
-        show = findViewById(R.id.show);
+        showText = findViewById(R.id.show);
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +60,11 @@ public class GroupActivity extends AppCompatActivity {
         this.init();
 
         StompClient stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, Const.address);
+        Toast.makeText(this, "Start connecting to server", Toast.LENGTH_SHORT).show();
         stompClient.connect();
-        Toast.makeText(this, "Connect start", Toast.LENGTH_SHORT).show();
         StompUtils.lifecycle(stompClient);
 
-        groupId.addTextChangedListener(new TextWatcher() {
+        groupIdText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -79,51 +77,52 @@ public class GroupActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!submit.isEnabled())
-                    submit.setEnabled(true);
+                if (!submitButton.isEnabled())
+                    submitButton.setEnabled(true);
             }
         });
 
-        submit.setOnClickListener(v -> {
-            group_id = groupId.getText().toString();
-            if (group_id.length() == 0) {
+        submitButton.setOnClickListener(v -> {
+            groupId = groupIdText.getText().toString();
+            if (groupId.length() == 0) {
                 return;
             }
-            stompClient.topic(Const.groupResponse.replace("placeholder", group_id)).subscribe(stompMessage -> {
+            stompClient.topic(Const.groupResponse.replace(Const.placeholder, groupId)).subscribe(stompMessage -> {
                 JSONObject jsonObject = new JSONObject(stompMessage.getPayload());
                 Log.i(Const.TAG, "Receive: " + stompMessage.getPayload());
                 runOnUiThread(() -> {
                     try {
-                        show.append(jsonObject.getString("response") + "\n");
+                        showText.append(jsonObject.getString("response") + "\n");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 });
             });
-            submit.setEnabled(false);
-            send.setEnabled(true);
+            submitButton.setEnabled(false);
+            sendButton.setEnabled(true);
         });
 
-        send.setOnClickListener(v -> {
+        sendButton.setOnClickListener(v -> {
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("name", name.getText().toString());
+                jsonObject.put("name", nameText.getText().toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (group_id == null || group_id.length() == 0) {
-                group_id = groupId.getText().toString();
+            if (groupId == null || groupId.length() == 0) {
+                groupId = groupIdText.getText().toString();
             }
-            stompClient.send(Const.group.replace("placeholder", group_id), jsonObject.toString()).subscribe();
+            stompClient.send(Const.group.replace(Const.placeholder, groupId), jsonObject.toString()).subscribe();
+            nameText.setText("");
         });
 
-        broadcast.setOnClickListener(v -> {
+        broadcastButton.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setClass(GroupActivity.this, BroadcastActivity.class);
             startActivity(intent);
             this.finish();
         });
-        chat.setOnClickListener(v -> {
+        chatButton.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setClass(GroupActivity.this, ChatActivity.class);
             startActivity(intent);

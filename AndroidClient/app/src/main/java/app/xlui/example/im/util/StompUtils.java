@@ -1,28 +1,29 @@
 package app.xlui.example.im.util;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
 
 import app.xlui.example.im.conf.Const;
 import ua.naiksoftware.stomp.StompClient;
 
+import static app.xlui.example.im.conf.Const.TAG;
+
 public class StompUtils {
-	@SuppressLint("CheckResult")
+    @SuppressWarnings({"ResultOfMethodCallIgnored", "CheckResult"})
     public static void lifecycle(StompClient stompClient) {
-		stompClient.lifecycle().subscribe(lifecycleEvent -> {
-			switch (lifecycleEvent.getType()) {
-				case OPENED:
-					Log.d(Const.TAG, "Stomp connection opened");
-					break;
+        stompClient.lifecycle().subscribe(lifecycleEvent -> {
+            switch (lifecycleEvent.getType()) {
+                case OPENED:
+                    Log.d(TAG, "Stomp connection opened");
+                    break;
 
-				case ERROR:
-					Log.e(Const.TAG, "Error", lifecycleEvent.getException());
-					break;
+                case ERROR:
+                    Log.e(TAG, "Error", lifecycleEvent.getException());
+                    break;
 
-				case CLOSED:
-					Log.d(Const.TAG, "Stomp connection closed");
-					break;
-			}
-		});
-	}
+                case CLOSED:
+                    Log.d(TAG, "Stomp connection closed");
+                    break;
+            }
+        });
+    }
 }
